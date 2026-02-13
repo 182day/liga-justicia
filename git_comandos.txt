@@ -1,0 +1,298 @@
+git --versión
+git -v
+el -- espara palabras completas y el - es para abreviaciones
+
+git help
+git help comit
+q para salir
+
+git config --global user.name "Fernando Contreras"
+git config --global user.email "fers.delgarza@gmail.com"
+Ve la configuración global
+git config --global -e
+con tecla a hacer cambios
+para salir usar tecla ESC y escribir :wq!
+
+Inicializa el repositorio
+git init
+
+Da información sobre los commits
+git status
+por default salen en rojo los que no se les da seguimiento
+
+añade en especifico un archivo
+git add nombre_archivo
+
+para añadir todos usa
+git add .
+
+para remover algún archivo
+git reset nombre_archivo
+
+Añadir un commit mensaje
+git commit --mesagge ""
+git commit -m "Primer commit"
+
+recuperar mi proyecto al ultimo commit
+git checkout -- .
+
+los archivos U no se les esta haciendo seguimiento
+
+sirve para mostrar la rama
+git branch
+
+cambiar el nombre de la rama
+git branch -m master main
+
+poner por default el nombre de la rama master por main
+git config --global init.defaultBranch main
+
+Para añadir y crear un commit al mismo tiempo puedo usar
+git commit -am "Readme actualizado"
+
+Para ver lo que se ha hecho en git
+git log
+
+se puede hacer el add . y el commit desde visual studio code en el icono de git
+
+se puede añadir con add con un comodin a ciertos tipos de archivos
+git add *.HTML
+
+si quiero añadir por directorio
+git add js/*.js
+
+cuando se tiene una carpeta vacia y quieres que git la mantenga se debe usar un archivo .gitkeep
+después para añadirlo usar
+git add uploads/.gitkeep
+
+si quiero añadir un directorio
+git add css/
+
+para no ver tanta información con git status puedo usar
+git status --short
+
+Crear mis alias para comandos de git
+git config --global alias.s "status --short"
+
+para ver la forma corta del log es
+git log --oneline
+git log --oneline --decorate --all --graph
+
+este alias es muy util
+git config --global alias.lg "log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all"
+
+para ver modificaciones que se hicieron en los archivos usar:
+git diff
+--- (Se removieron varias líneas)
++++ (Añadidos al archivo)
+
+Después de hacer un add . y consultar los cambios usar:
+git diff --staged
+
+Cambiar el nombre(mensaje) del ultimo commit
+git commit --amend -m "Nombre del commit"
+
+para añadir modificaciones al commit anterior primero usa:
+git reset --soft HEAD^
+nota HEAD apunta al ultimo commit se poner HEAD^ el signo ^ para decir una antes ^2 dos antes ^3 antes
+después añadir el commit correcto
+git commit -am "Nombre (mensaje commit)"
+
+quitar warning que sale al hacer add
+git config core.autocrlf true
+
+Si quiero corregir el historial de commit
+git commit --amend
+para salir pulsar ESC luego : y para grabar los cambios wq!(salir solamente q!)
+
+Si quiero añadir algo mas al comit y hacer algo parecido como git reset --soft HEAD^ pero seleccionado el id del hash de cada commit
+git reset --soft 7d86c92
+ID de commit es 7d86c92 para ver lis id usar el comando git lg
+
+para borrar los commits sin borrar cambios es decir no es destructivo a partir de un ID usar
+git reset --mixed 4cd46bd
+si quieres que sea destructivo y borrar cambios usar
+git reset --hard 4cd46bd
+
+comando para ver todo lo que se hizo en git
+git reflog
+todos tienen un hash o ID asi que puedes regresar a uno que existía antes cuando todo estaba bien si es que hiciste cambios destructivos
+git reset --hard 05a846e
+
+para renombrar un archivo o mejor dicho mover un archivo usando la técnica del mv hacer lo siguiente:
+git mv nombre_archivo otro_nombre_archivo
+le va poner una R de Rename
+
+para borrar un archivo desde git usar rm de remove
+git rm nombre_Archivo
+al hacer git s se verá que todavía existe con una D de delete
+si uso el siguiente comando para recuperarlo algo parecido al git checkout -- . es usar
+git reset --hard
+
+para decirle a git que no le de seguimiento a algunas carpetas o archivos hay que crear en raíz del proyecto el archivo
+.gitignore
+en el archivo solo escribir la carpeta para ignorar
+node_modules/
+y para archivos se puede usar:
+nombre.log
+o un comodin para todos los de la misma extensión
+*.log
+
+Para crear una nueva rama
+git branch nombre_de_rama
+
+para cambiar a otra rama
+git checkout nombre_de_rama
+
+si cambio de rama se va borrar todo lo que hice en esa rama pero al regresar a la rama anterior se recupera lo que había hecho en esa rama
+
+si quiero unir a la rama principal otra rama primero regresar a la rama principal
+git checkout master
+después
+git merge nombre_rama
+
+lo ideal después de unir una rama con otra es borrar la rama para hacerlo es
+git branch -d nombre_rama
+cuando no se a unido a ninguna rama debes de confirmar que si deseas borrarla o sino usar
+git branch -d nombre_rama -f
+el -f lo fuerza
+
+para crear una rama y moverse a la rama en un solo comando
+git checkout -b nombre_rama
+
+Merge o uniones de ramas con conflictos sucede cuando en dos ramas trabajo el mismo archivo
+después de resolver el conflicto solo hace un commit -am
+
+Añadir un tag (es como añadir una versión v1 v2 v3) los tags son importantes porque son versiones que pueden pasar a producción
+git tag nombre_tag
+
+para borrar el tag
+git tad -d nombre_tag
+
+para crear un tag con un mensaje
+git tag -a nombre_tag -m "Mensaje"
+
+buenas practicas en las versiones
+v1.0.0 el primero es cambios duros, el segundo cambios modulos, tercero arreglar bugs
+
+si quiero añadir un tag en un commit anterior
+git tag -a nombre_tag HASH_O_ID
+
+para ver mas información sobre el tag
+git show nombre_tag
+
+git stash sirve para guardar algo que se han hecho cambios pero si aún no quieres subir a producción el proyecto con cambios que andas realizando en ese momento, aunque lo ideal es usar ramas
+git stash
+
+para ver referencias de stash
+git stash list
+
+para recuperar el stash usar
+git stash pop
+
+borrar todos stash
+git stash clear
+
+cuando se tiene n varios stash se puede recuperar uno en especial con
+git stash apply nombre_stash(stash@{2})
+
+borrar ultimo stash
+git stash drop
+borrar un stash en espesifico
+git stash drop nombre_stash(stash@{1}) 
+
+saber un poco que se hizo en el stash
+git stash show nombre_stash
+
+ponerle un nombr eo mensaje al stash para saber que tiene
+git stash save "nombre_mensaje"
+
+ver más información de los stash
+git stash list --stat
+
+RECOMENDACIÓN DESPUÉS DE USAR LOS stash LO IDEAL ES LIMPIARLOS
+https://git-scm.com/docs/git-stash
+
+para ordenar una rama cuando hay cambios en master después de la rama secundaria debes cambiarte a la rama secundaria y usar
+git checkout nombre_rama(Secundaria)
+git rebase nombre_de_rama(master)
+esto hará que se ordenen pero después hay que hacer el cambio a master y usar el
+git checkout nombre_rama(master)
+git merge nombre_rama(secundaria)
+finalmente elimina la rama secundaria que ya no se utilizará
+git branch -d nombre_rama(secundaria)
+esto casi no se usa es mejor usar el merge de ramas y resolver conflictos
+
+
+cuando hay uno o mas commit que tienen mensaje y son de la mismo modificación y unirlos en un solo commit debemos usar (Solo hacer mientras este local el archivo antes de hacer push)
+si se quiere hacer para unir los últimos commits especificando la cantidad usar:
+git rebase -i HEAD~NUMERO_DE_COMMITS
+después se abrirá información de la cantidad de commits seleccionado y los comandos que podemos usar
+ver la imagen para referencia
+con la letra "A" puedo escribir en los resultados después cambia el "pick" por "squash" o "s" va unir ese con el anterior commit
+salir con
+ESC + :wq!
+
+Cambiar nombres de commits con
+git rebase -i HEAD~NUMERO_DE_COMMITS
+después se abrirá información de la cantidad de commits seleccionado y los comandos que podemos usar
+ver la imagen para referencia
+con la letra "A" puedo escribir en los resultados después cambia el "pick" por "reword" o "r" va unir ese con el anterior commit
+salir con
+ESC + :wq!
+Después se abrirán los dos commits con sus datos para editar
+Cambiar datos con letra "A"
+salir con
+ESC + :wq!
+se debe de hacer lo mismo con la cantidad de commits seleccionados
+NOTA: esto no modifica el autor que hizo el commit
+
+Cuando se hacen modificaciones a varios archivos y quieres revertir cambios de un archivo en especifico sin usar git checkout -- . que revierte todos
+git checkout -- NOMBRE_ARCHIVO.EXTENCION
+
+Si se hace un commit de varios archivos pero quiero separarlos en commits independientes de cada archivo puedo usar lo siguiente
+git rebase -i HEAD~NUMERO_DE_COMMITS
+después se abrirá información de la cantidad de commits seleccionado y los comandos que podemos usar
+ver la imagen para referencia
+con la letra "A" puedo escribir en los resultados después cambia el "pick" por "edit" o "e" va unir ese con el anterior commit
+salir con
+ESC + :wq!
+Después hacer:
+git reset HEAD^
+y después añadir uno por uno
+git add NOMBRE_ARCHIVO
+y hacer su commit
+git commit -m "NOMBRE COMMIT"
+Después lo restante en caso de que sean solo 2 pero si se quieren hacer más hacerlo el add de cada uno
+git commit -am "NOMBRE COMMIT"
+FINALMENTE para terminar el rebase interactivo usar:
+git rebase --continue
+
+Salir en caso de que no finalizamos el rebase
+git rebase --abort
+Nota: te borrara lo que hayas hecho de cambios después del rebase
+
+Crear un repositorui en GitHub y hacer lo siguiente
+git remote add origin https://github.com/182day/liga-justicia.git
+git branch -M main
+git push -u origin main
+
+Subir todos los tags al repositorio
+git push --tags
+
+ver donde se hizo el repositorio
+git remote -v
+
+Para traer los cambios a git desde git hub
+git pull
+o
+git pull origin NOMBRE_DE_RAMA(main)
+
+Clonar un repositorio desde GitHub
+git clone URL_GITHUB
+
+Para actualizar las referencias sin hacer un merge con el git pull en mi proyecto local puedo usar y vería las cosas que han pasado
+git fetch
+
+Para revertir cambios de un carcommit pero solo de un archivo en especifico utilizar:
+git checkout ID(HASS) NOMBRE_ARCHIVO
