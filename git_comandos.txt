@@ -296,3 +296,12 @@ git fetch
 
 Para revertir cambios de un carcommit pero solo de un archivo en especifico utilizar:
 git checkout ID(HASS) NOMBRE_ARCHIVO
+
+se pueden añadir todos los repositorios remotos que quieras en git(se ocupa cuando tienes un Fork)
+git remote add upstream(O cualquier otro nombre en vez de upstream)LINK_GITHUB(https://github.com/182day/liga-justicia.git)
+para jalar cambios de otro repositorio que no es el original usar:
+git pull upstream(O cualquier otro nombre en vez de upstream) main(RAMA DONDE SE TRAEN LOS DATOS)
+se entrara en modo rebase y hay que continuar se puede usar git status para ver lo que sucede
+hacemos el git commit -am "NOMBRE"
+git rebase --continue
+y después git commit -am "NOMBRE"
