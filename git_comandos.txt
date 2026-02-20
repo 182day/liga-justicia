@@ -305,3 +305,27 @@ se entrara en modo rebase y hay que continuar se puede usar git status para ver 
 hacemos el git commit -am "NOMBRE"
 git rebase --continue
 y después git commit -am "NOMBRE"
+
+para subir una nueva rama a GitHub:
+git push
+Esperar el error y copiar y pegar lo obtenido algo así:
+git push --set-upstream origin rama-villanos
+
+para traer las ramas de los demás del equipo de trabajo en local usar:
+git pull --all
+después si hacemos git Branch no veremos la rama, para eso debemos usar:
+git branch --all
+o
+git branch -a
+después moverse a la rama:
+git checkout rama-misiones
+
+Borar ramas de git brach --all son las de los demás usuarios
+git remote prune origin
+si quieres borrar la rama de GitHub usar:
+git push :rama-villanos
+
+cerrar un issue desde local la terminal
+git commit -am "Fixes #4(NUMERO DE ISSUE): Hecho hice los camios solicitados"
+solo funciona en la rama princial
+
